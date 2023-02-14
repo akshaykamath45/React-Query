@@ -4,9 +4,23 @@ import { Home } from './Pages/Home';
 import {Profile} from './Pages/Profile';
 import {Contacts} from './Pages/Contacts';
 import { NavBar } from './NavBar';
+import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
+
 function App() {
+  
+  const client=new QueryClient({
+    defaultOptions:{
+       queries:{
+          refetchOnWindowFocus:false
+       }
+    }
+  });
+  // Queries is just the READ from CRUD.
+  // Mutations is CUD from CRUD.
+  
   return (
     <div className="App">
+      <QueryClientProvider client={client}>
       <Router>
         <NavBar/>
         <Routes>
@@ -16,6 +30,7 @@ function App() {
           <Route path="*" element={<h1>Page not Found</h1>}/>
         </Routes>
       </Router>
+      </QueryClientProvider>
     </div>
   );
 }
